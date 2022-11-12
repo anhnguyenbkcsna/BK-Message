@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from "react-router-dom"
 import { Button, TextField, Box } from '@mui/material'
+
 const Home = ({ socket }) => {
     const navigate = useNavigate()
     const [userName, setUserName] = useState("")
@@ -14,14 +15,21 @@ const Home = ({ socket }) => {
     return (
         // <form className='home__container' onSubmit={handleSubmit}>
         // <h2 className='home__header'>Your name in the chat</h2>
-        <Box component='form' noValidate
+        <Box 
+            component='form' 
+            noValidate
             sx={{ '& > :not(style)': { m: 1, width: '25ch' }, }}
-            onSubmit={handleSubmit}>
-            <TextField type="text"
-                id="username" name="username" value={userName}
-                label="Username" variant="outlined"
-                onChange={e => setUserName(e.target.value)} />
-            <Button variant="contained" color="success" onClick={handleSubmit} >Enter </Button>
+        onSubmit={handleSubmit}>
+            <TextField 
+                type="text"
+                id="username" 
+                name="username" 
+                value={userName}
+                label="Username" 
+                variant="outlined"
+                onChange={e => setUserName(e.target.value)} 
+            />
+            <Button variant="contained" color="success" onClick={handleSubmit}>Enter</Button>
         </Box>
         /* <input type="text"
             minLengt="1"
