@@ -16,7 +16,7 @@ const Home = ({ socket }) => {
             <h2 className='home__header'>Sign in to Open Chat</h2>
             <label htmlFor="username">Username</label>
             <input type="text"
-                minLength={6}
+                minLengt="1"
                 name="username"
                 id='username'
                 className='username__input'
