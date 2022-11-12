@@ -1,6 +1,7 @@
+import { socket } from '../../services/socket';
 import React, { useState } from 'react'
 
-const ChatFooter = ({ socket }) => {
+const ChatFooter = () => {
     const [message, setMessage] = useState("")
     const handleTyping = () => socket.emit("typing", `${localStorage.getItem("userName")} is typing`)
 

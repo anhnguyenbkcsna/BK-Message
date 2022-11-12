@@ -1,10 +1,9 @@
 import React from 'react'
+// import { socket } from '../../services/socket';
 import { useNavigate } from "react-router-dom"
 
 const ChatBody = ({ messages, typingStatus, lastMessageRef }) => {
     const navigate = useNavigate()
-
-
     const handleLeaveChat = () => {
         localStorage.removeItem("userName")
         navigate("/")

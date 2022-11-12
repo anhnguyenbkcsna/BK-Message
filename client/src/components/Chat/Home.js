@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import { useNavigate } from "react-router-dom"
 import { Button, TextField, Box } from '@mui/material'
+import { socket } from '../../services/socket';
 
-const Home = ({ socket }) => {
+
+const Home = () => {
     const navigate = useNavigate()
     const [userName, setUserName] = useState("")
 
@@ -19,7 +21,8 @@ const Home = ({ socket }) => {
             component='form' 
             noValidate
             sx={{ '& > :not(style)': { m: 1, width: '25ch' }, }}
-        onSubmit={handleSubmit}>
+            onSubmit={handleSubmit}
+        >
             <TextField 
                 type="text"
                 id="username" 

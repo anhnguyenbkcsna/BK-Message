@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { styled } from '@mui/material/styles';
 import Badge from '@mui/material/Badge';
-import Avatar from '@mui/material/Avatar';
 import Stack from '@mui/material/Stack';
+import UserAvatar from './UserAvatar';
+import { socket } from '../../services/socket';
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
     '& .MuiBadge-badge': {
@@ -34,59 +35,37 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
     },
 }));
 
-function stringToColor(string) {
-    let hash = 0;
-    let i;
-
-    /* eslint-disable no-bitwise */
-    for (i = 0; i < string.length; i += 1) {
-        hash = string.charCodeAt(i) + ((hash << 5) - hash);
-    }
-
-    let color = '#';
-
-    for (i = 0; i < 3; i += 1) {
-        const value = (hash >> (i * 8)) & 0xff;
-        color += `00${value.toString(16)}`.slice(-2);
-    }
-    /* eslint-enable no-bitwise */
-
-    return color;
-}
-
-function stringAvatar(name) {
-    return {
-        sx: {
-            bgcolor: stringToColor(name),
-        },
-        children: `${name.split(' ')[0][0]}`,
-    };
-}
-
-const ChatBar = ({ socket }) => {
+const ChatBar = () => {
     const [users, setUsers] = useState([])
 
     useEffect(() => {
         socket.on("newUserResponse", data => setUsers(data))
+    // eslint-disable-next-line
     }, [socket, users])
+    // [] là dependency array của
+    // useEffect() render lại cái component. 
+    // Khi các biến bên trong [] thay đổi thì nó sẽ tự render
+    // It simply means that the hook will only trigger once when the component is first rendered. 
+    // So for example, for useEffect it means the callback will run once at the beginning of the lifecycle 
+    // of the component and never again.
 
     return (
         <div className='chat__sidebar'>
             <h2>Open Chat</h2>
             <Stack direction='row' spacing={2}>
-                {users.map(user => {
+                {users.map(user => 
                     <StyledBadge
                         key={user.socketID}
                         overlap="circular"
                         anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                         variant="dot"
                     >
-                        <Avatar {...stringAvatar(String(user.userName))} />
+                        <UserAvatar name={user.userName}/>
                     </StyledBadge>
-                })}
-                <Avatar {...stringAvatar('Cu Son')} />
+                )}
+                {/* <Avatar {...stringAvatar('Cu Son')} />
                 <Avatar {...stringAvatar('Chung Tu')} />
-                <Avatar  {...stringAvatar('Nhat Anh')} />
+                <Avatar  {...stringAvatar('Nhat Anh')} /> */}
             </Stack>
             <div>
                 <h4 className='chat__header'>ACTIVE USERS</h4>
