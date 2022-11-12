@@ -19,6 +19,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
             animation: 'ripple 1.2s infinite ease-in-out',
             border: '1px solid currentColor',
             content: '""',
+            key: '""',
         },
     },
     '@keyframes ripple': {
@@ -58,7 +59,7 @@ function stringAvatar(name) {
         sx: {
             bgcolor: stringToColor(name),
         },
-        children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
+        children: `${name.split(' ')[0][0]}`,
     };
 }
 
@@ -73,13 +74,16 @@ const ChatBar = ({ socket }) => {
         <div className='chat__sidebar'>
             <h2>Open Chat</h2>
             <Stack direction='row' spacing={2}>
-                <StyledBadge
-                    overlap="circular"
-                    anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-                    variant="dot"
-                >
-                    <Avatar   {...stringAvatar('Nhat Tan')} />
-                </StyledBadge>
+                {users.map(user => {
+                    <StyledBadge
+                        key={user.socketID}
+                        overlap="circular"
+                        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                        variant="dot"
+                    >
+                        <Avatar {...stringAvatar(String(user.userName))} />
+                    </StyledBadge>
+                })}
                 <Avatar {...stringAvatar('Cu Son')} />
                 <Avatar {...stringAvatar('Chung Tu')} />
                 <Avatar  {...stringAvatar('Nhat Anh')} />

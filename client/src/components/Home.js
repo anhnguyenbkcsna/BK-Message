@@ -18,10 +18,10 @@ const Home = ({ socket }) => {
             sx={{ '& > :not(style)': { m: 1, width: '25ch' }, }}
             onSubmit={handleSubmit}>
             <TextField type="text"
-                id="username" name="username" minLengt="1" value={userName}
+                id="username" name="username" value={userName}
                 label="Username" variant="outlined"
                 onChange={e => setUserName(e.target.value)} />
-            <Button variant="contained" color="success" onclick={handleSubmit}>Enter </Button>
+            <Button variant="contained" color="success" onClick={handleSubmit} >Enter </Button>
         </Box>
         /* <input type="text"
             minLengt="1"
