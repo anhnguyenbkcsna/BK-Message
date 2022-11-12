@@ -16,7 +16,7 @@ socketIO.on('connection', (socket) => {
     console.log(`⚡: ${socket.id} user just connected!`)
     socket.on("newUser", data => {
         users.push(data)
-        console.log('users ${users}')
+        console.log('users ', users)
         socketIO.emit("newUserResponse", users)
     })
     socket.on("message", data => {
@@ -27,7 +27,9 @@ socketIO.on('connection', (socket) => {
         socket.broadcast.emit("typingResponse", data)
     ))
 
-
+    socket.on("", data => (
+        socket.emit("message", data)
+    ))
 
     socket.on('disconnect', () => {
         console.log('🔥: A user disconnected');
