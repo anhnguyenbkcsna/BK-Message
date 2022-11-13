@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from "react-router-dom"
-import { Button, TextField, Box } from '@mui/material'
+import { Button, TextField, Box, Link } from '@mui/material'
 import { socket } from '../../services/socket';
 
 
@@ -33,7 +33,7 @@ const Home = () => {
             }}
             onSubmit={handleSubmit}
         >
-            <h1 > Sign In Chat App</h1>
+            <h1 > Sign In Chat App chua co cai password</h1>
             <TextField
                 type="text"
                 id="username"
@@ -41,8 +41,6 @@ const Home = () => {
                 value={userName}
                 label="Username"
                 variant="outlined"
-                error={userName.length === 0}
-                helperText={!userName.length ? 'required' : ''}
                 onChange={e => setUserName(e.target.value)}
             />
             <TextField
@@ -52,11 +50,13 @@ const Home = () => {
                 value={passWord}
                 label="Password"
                 variant="outlined"
-                error={passWord.length === 0}
                 onChange={e => setPassWord(e.target.value)}
             />
+            <Link > Not have an acount? </Link>
+            <Link > Forgot password? </Link>
             <Button variant="contained" color="success" onClick={handleSubmit}>Enter</Button>
         </Box >
+
     )
 }
 

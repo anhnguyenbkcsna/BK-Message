@@ -40,7 +40,7 @@ const ChatBar = () => {
 
     useEffect(() => {
         socket.on("newUserResponse", data => setUsers(data))
-    // eslint-disable-next-line
+        // eslint-disable-next-line
     }, [socket, users])
     // [] là dependency array của
     // useEffect() render lại cái component. 
@@ -51,30 +51,27 @@ const ChatBar = () => {
 
     return (
         <div className='chat__sidebar'>
-            <h2>Open Chat</h2>
+            <h2>Online</h2>
             <Stack direction='row' spacing={2}>
-                {users.map(user => 
+                {users.map(user =>
                     <StyledBadge
                         key={user.socketID}
                         overlap="circular"
                         anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                         variant="dot"
                     >
-                        <UserAvatar name={user.userName}/>
+                        <UserAvatar name={user.userName} />
                     </StyledBadge>
                 )}
-                {/* <Avatar {...stringAvatar('Cu Son')} />
-                <Avatar {...stringAvatar('Chung Tu')} />
-                <Avatar  {...stringAvatar('Nhat Anh')} /> */}
             </Stack>
-            <div>
-                <h4 className='chat__header'>ACTIVE USERS</h4>
+            {/* <div>
+                <h4 className='chat__header'>Offline</h4>
 
                 <div className='chat__users'>
                     {users.map(user => <p key={user.socketID}>{user.userName}</p>)}
                 </div>
 
-            </div>
+            </div> */}
         </div>
     )
 }
