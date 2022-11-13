@@ -51,7 +51,7 @@ const ChatBar = () => {
 
     return (
         <div className='chat__sidebar'>
-            <h2>Open Chat</h2>
+            <h2>ACTIVE USER</h2>
             <Stack direction='row' spacing={2}>
                 {users.map(user => 
                     <StyledBadge
@@ -63,15 +63,18 @@ const ChatBar = () => {
                         <UserAvatar name={user.userName}/>
                     </StyledBadge>
                 )}
-                {/* <Avatar {...stringAvatar('Cu Son')} />
-                <Avatar {...stringAvatar('Chung Tu')} />
-                <Avatar  {...stringAvatar('Nhat Anh')} /> */}
             </Stack>
             <div>
-                <h4 className='chat__header'>ACTIVE USERS</h4>
+                <h4 className='chat__header'>FRIENDS</h4>
 
                 <div className='chat__users'>
-                    {users.map(user => <p key={user.socketID}>{user.userName}</p>)}
+
+                    {users.map(user => 
+                        <div>
+                            <UserAvatar name={user.userName}/>
+                            <p key={user.socketID}>{user.userName}</p>
+                        </div>
+                    )}
                 </div>
 
             </div>
