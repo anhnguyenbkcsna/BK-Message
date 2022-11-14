@@ -1,9 +1,9 @@
 import { socket } from '../../services/socket';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 const ChatFooter = () => {
     const [message, setMessage] = useState("")
-    const handleTyping = () => socket.emit("typing", `${localStorage.getItem("userName")} is typing`)
+    // const handleTyping = () => (message) ? socket.emit("typing", `${localStorage.getItem("userName")} is typing`) : null;
 
     const handleSendMessage = (e) => {
         e.preventDefault()
@@ -19,6 +19,12 @@ const ChatFooter = () => {
         }
         setMessage("")
     }
+    useEffect(() => {
+        if(message)
+            socket.emit("typing", `${localStorage.getItem("userName")} is typing`);
+        else socket.emit("typing", "");
+        socket.off("typing");
+    },[message])
     return (
         <div className='chat__footer'>
             <form className='form' onSubmit={handleSendMessage}>
@@ -28,7 +34,7 @@ const ChatFooter = () => {
                     className='message'
                     value={message}
                     onChange={e => setMessage(e.target.value)}
-                    onKeyDown={handleTyping}
+                    // onKeyDown={handleTyping}
                 />
                 <button className="sendBtn">SEND</button>
             </form>

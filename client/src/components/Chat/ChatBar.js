@@ -4,6 +4,7 @@ import Badge from '@mui/material/Badge';
 import Stack from '@mui/material/Stack';
 import UserAvatar from './UserAvatar';
 import { socket } from '../../services/socket';
+import { Button } from '@mui/material';
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
     '& .MuiBadge-badge': {
@@ -54,30 +55,32 @@ const ChatBar = () => {
             <h2>Online</h2>
             <Stack direction='row' spacing={2}>
                 {users.map(user =>
-                    <StyledBadge
-                        key={user.socketID}
-                        overlap="circular"
-                        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-                        variant="dot"
-                    >
-                        <UserAvatar name={user.userName} />
-                    </StyledBadge>
+                    <>
+                        <StyledBadge
+                            key={user.socketID}
+                            overlap="circular"
+                            anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                            variant="dot"
+                            >
+                            <UserAvatar name={user.userName} />
+                        </StyledBadge>
+                    </>
                 )}
             </Stack>
-            {/* <div>
+            <div>
                 <h4 className='chat__header'>Offline</h4>
 
                 <div className='chat__users'>
 
                     {users.map(user => 
                         <div>
-                            <UserAvatar name={user.userName}/>
-                            <p key={user.socketID}>{user.userName}</p>
+                            {/* <UserAvatar name={user.userName}/> */}
+                            <Button key={user.socketID}>{user.userName}</Button>
                         </div>
                     )}
                 </div>
 
-            </div> */}
+            </div>
         </div>
     )
 }

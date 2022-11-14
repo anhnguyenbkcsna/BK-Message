@@ -20,11 +20,6 @@ const useStyles = makeStyles(() => ({
     flexDirection: 'column',
     gap: "20px",
   },
-  accountProblems: {
-    width: "40%",
-    display: "flex",
-    gap: "50px",
-  },
 }))
 
 const ForgetPass = () => {
