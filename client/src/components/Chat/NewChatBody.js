@@ -1,9 +1,13 @@
-import React from "react";
-import { makeStyles } from "@mui/styles";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect, useRef } from 'react'
+import { makeStyles } from '@mui/styles'
+import { useNavigate } from "react-router-dom"
+import { socket } from '../../services/socket'
 import { Button } from '@mui/material'
 
 const useStyles = makeStyles(() => ({
+  container: {
+    position: "relative",
+  },
   header: {
     width: "100%",
     height: "10vh",
@@ -42,19 +46,40 @@ const useStyles = makeStyles(() => ({
     borderRadius: "10px",
     fontSize: "15px",
   },
+  messageStatus: {
+    position: "absolute",
+    bottom: "10px",
+    color: "#44B700",
+  }
 }))
 
-const NewChatBody = ({ messages, typingStatus, lastMessageRef }) => {
+const NewChatBody = () => {
   const styles = useStyles();
-  const navigate = useNavigate();
+  const navigate = useNavigate()
+  const [messages, setMessages] = useState([])
+  const [typingStatus, setTypingStatus] = useState("")
+  const lastMessageRef = useRef(null)
+
   const handleLeaveChat = () => {
     localStorage.removeItem("userName");
     navigate("/")
     window.location.reload();
   }
 
+  useEffect(() => {
+    socket.on("messageResponse", data => setMessages([...messages, data]))
+  }, [messages])
+
+  useEffect(() => {
+      socket.on("typingResponse", data => setTypingStatus(data))
+  },[])
+
+  useEffect(() => {
+      lastMessageRef.current?.scrollIntoView({ behavior: "smooth" });
+  },[messages])
+
   return (
-    <>
+    <div className={styles.container}>
       <div className={styles.header}>
         <h1 style={{color: "white"}}>BK Message</h1>
         <Button
@@ -84,13 +109,13 @@ const NewChatBody = ({ messages, typingStatus, lastMessageRef }) => {
               </div>  
             </div>
           )
-        ))}
+        ))} 
         <div className={styles.messageStatus}>
           <i>{typingStatus ? typingStatus : ''}</i>
         </div>
         <div ref={lastMessageRef} />
       </div>
-    </>
+    </div>
   )
 }
 

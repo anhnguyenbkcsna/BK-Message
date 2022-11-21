@@ -1,5 +1,6 @@
 import { socket } from '../../services/socket';
 import React, { useEffect, useState } from 'react'
+import { Button } from '@mui/material';
 
 const ChatFooter = () => {
     const [message, setMessage] = useState("")
@@ -36,7 +37,8 @@ const ChatFooter = () => {
                     onChange={e => setMessage(e.target.value)}
                     // onKeyDown={handleTyping}
                 />
-                <button className="sendBtn">SEND</button>
+                <Button variant="contained" color="primary">File</Button>
+                <Button variant="contained" color="success">SEND</Button>
             </form>
         </div>
     )

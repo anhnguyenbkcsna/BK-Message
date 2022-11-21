@@ -14,6 +14,8 @@ let users = []
 
 socketIO.on('connection', (socket) => {
     console.log(`⚡: ${socket.id} user just connected!`)
+
+    // receive message
     socket.on("newUser", data => {
         users.push(data)
         console.log('users ', users)
@@ -37,6 +39,9 @@ socketIO.on('connection', (socket) => {
         socketIO.emit("newUserResponse", users)
         socket.disconnect()
     });
+    // socket.on('joined', () => {
+    //     socketIO.emit("available", users);
+    // })
 });
 
 app.get("/api", (req, res) => {

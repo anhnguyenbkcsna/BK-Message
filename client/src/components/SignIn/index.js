@@ -37,7 +37,7 @@ const handleSubmit = (e) => {
     if (userName.length > 0) {
         localStorage.setItem("userName", userName)
         socket.emit("newUser", { userName, socketID: socket.id })
-        navigate("/chat")
+        navigate("/home")
     }
 }
 return (
