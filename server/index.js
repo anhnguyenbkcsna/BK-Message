@@ -24,6 +24,10 @@ socketIO.on('connection', (socket) => {
     socket.on("message", data => {
         socketIO.emit("messageResponse", data)
     })
+    
+    socket.on("media", data => {
+        socketIO.emit("mediaResponse", data)
+    })
 
     socket.on("typing", data => (
         socket.broadcast.emit("typingResponse", data)

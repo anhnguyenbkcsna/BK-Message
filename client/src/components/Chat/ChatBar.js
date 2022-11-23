@@ -4,7 +4,6 @@ import Badge from '@mui/material/Badge';
 import Stack from '@mui/material/Stack';
 import UserAvatar from './UserAvatar';
 import { socket } from '../../services/socket';
-import { Link } from 'react-router-dom';
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
     '& .MuiBadge-badge': {

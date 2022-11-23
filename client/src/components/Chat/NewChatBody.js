@@ -31,9 +31,13 @@ const useStyles = makeStyles(() => ({
   sender: {  
     textAlign: "right"
   },
+  imageMessage: {
+    maxWidth: "100%"
+  },
   messageSender: {
     backgroundColor: "#80c960",
-    maxWidth: "300px",
+    width: "auto",
+    maxWidth: "60%",
     padding: "10px",
     borderRadius: "10px",
     fontSize: "15px",
@@ -41,7 +45,8 @@ const useStyles = makeStyles(() => ({
   },
   messageRecipient: {  
     backgroundColor: "#f5ccc2",
-    width: "300px",
+    width: "auto",
+    maxWidth: "60%",
     padding: "10px",
     borderRadius: "10px",
     fontSize: "15px",
@@ -71,6 +76,12 @@ const NewChatBody = () => {
   }, [messages])
 
   useEffect(() => {
+    socket.on("mediaResponse", data => {
+      console.log(data)
+      setMessages([...messages, data])
+  })}, [messages])
+
+  useEffect(() => {
       socket.on("typingResponse", data => setTypingStatus(data))
   },[])
 
@@ -98,14 +109,29 @@ const NewChatBody = () => {
             <div className={styles.messageChat} key={message.id}>
               <p className={styles.sender}>You</p>
               <div className={styles.messageSender}>
-                <p>{message.text}</p>
+                {message.type === "text" ? 
+                  (<p>{message.text}</p>) : (
+                    <img 
+                      className={styles.imageMessage}
+                      src={message.content} 
+                      alt={message.filename} 
+                    />
+                  )
+                }
               </div>
             </div>
           ) : (
             <div className={styles.messageChat} key={message.id}>
               <p className={styles.recipient}>{message.name}</p>
               <div className={styles.messageRecipient}>
-                <p>{message.text}</p>
+                {message.type === "text" ? 
+                  (<p>{message.text}</p>) : (
+                    <img 
+                      className={styles.imageMessage}
+                      src={message.content} 
+                      alt={message.filename} />
+                  )
+                }
               </div>  
             </div>
           )
