@@ -6,15 +6,30 @@ import { Button } from '@mui/material';
 
 const useStyles = makeStyles(() => ({
   container: {
-    width: '100%',
-    height: '100%',
+    position: 'relative',
+    width: '100vw',
+    height: '100vh',
+    backgroundImage: "linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1)",
+  },
+  userlist: {
+    position: 'absolute',
+    backgroundColor: "#fff",
+    width: "30%",
+    height: "50%",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
     alignItems: 'center',
     display: 'flex',
     flexDirection: 'column',
+    borderRadius: "25px",
+  },
+  title: {
+    color: "#0097FF",
+    margin: "20px",
   },
   user: {
     padding: "10px",
-    backgroundColor: '#daadaa',
   },
 }))
 
@@ -38,21 +53,23 @@ const UserList = () => {
 
   return (
     <div className={styles.container}>
-      <h1>User List</h1>
-      {users.map(user => user.userName !== localStorage.getItem("userName") ?
-        <div
-          key={user.userName}
-          className={styles.user}
-        >
-          {/* <Button  
-            onClick={() => setIsJoined(true)}
-          > */}
-            <Link to={`/chat/${user.userName}`}>
-              {user.userName}
-            </Link>
-          {/* </Button> */}
-        </div> : null
-      )}  
+      <div className={styles.userlist}>
+        <h1 className={styles.title}>User List</h1>
+        {users.map(user => user.userName !== localStorage.getItem("userName") ?
+          <div
+            key={user.userName}
+            className={styles.user}
+          >
+            {/* <Button  
+              onClick={() => setIsJoined(true)}
+            > */}
+              <Link to={`/chat/${user.userName}`}>
+                {user.userName}
+              </Link>
+            {/* </Button> */}
+          </div> : null
+        )}  
+      </div>
     </div>
   )
 }

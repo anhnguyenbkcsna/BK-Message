@@ -6,25 +6,42 @@ import { socket } from '../../services/socket';
 
 const useStyles = makeStyles(() => ({
   container: {
-    width: '100%',
-    height: '100%',
+    display: 'flex',
+    width: '100vw',
+    height: '100vh',
+    postion: 'relative',
+    backgroundImage: "linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1)",
+  },
+  formContainer: {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+  },
+  logo: {
+    maxWidth: "100px",
+    marginTop: "25px",
+  },
+  title: {
+    color: "#0097FF",
+    margin: "20px",
   },
   form: {
-    margin: "0 auto",
-    backgroundColor:"#AEBDCA",
-    alignItems: 'center',
+    backgroundColor: '#fff',
     display: "flex",
-    justifyContent:"center",
-    minHeight:"50vh",
-    width: "50vw",
     flexDirection: 'column',
+    alignItems: 'center',
     gap: "20px",
+    justifyContent:"center",
+    width: "500px",
+    borderRadius: "25px",
+    height: "550px",
   },
-  input: {},
-  accountProblems: {
-    width: "40%",
-    display: "flex",
-    gap: "50px",
+  input: {
+    width: "70%",
+  },
+  button: {
+    width: "100px",
   },
 }))
 
@@ -62,54 +79,56 @@ const SignUp = () => {
   }
   return (
     <div className={styles.container}>
-      <FormControl
-        className = {styles.form}
-        onSubmit={handleSubmit}
-      >
-        <h1 >Sign Up</h1>
-        <TextField
-          className={styles.input}
-          type="text"
-          id="username"
-          name="username"
-          value={userName}
-          label="Username"
-          variant="outlined"
-          onChange={e => setUserName(e.target.value)}
-        />
-        <TextField
-          className={styles.input}
-          type="text"
-          id="gmail"
-          name="gmail"
-          value={gmail}
-          label="Gmail"
-          variant="outlined"
-          onChange={e => setGmail(e.target.value)}
-        />
-        <TextField
+      <div className={styles.formContainer}>    
+        <FormControl
+          className={styles.form}
+          onSubmit={handleSubmit}
+        >
+          <h1 className={styles.title}>Sign Up</h1>
+          <TextField
             className={styles.input}
-            type="password"
-            id="password"
-            name="password"
-            value={password}
-            label="Password"
+            type="text"
+            id="username"
+            name="username"
+            value={userName}
+            label="Username"
             variant="outlined"
-            onChange={e => setPassword(e.target.value)}
-            />
-        <TextField
+            onChange={e => setUserName(e.target.value)}
+          />
+          <TextField
             className={styles.input}
-            type="password"
-            id="confirmPassword"
-            name="confirmPassword"
-            value={confirmPassword}
-            label="Password"
+            type="text"
+            id="gmail"
+            name="gmail"
+            value={gmail}
+            label="Gmail"
             variant="outlined"
-            onChange={e => setConfirmPassword(e.target.value)}
-            error={error}
-        />
-        <Button variant="contained" color="success" onClick={handleSubmit}>Enter</Button>
-      </FormControl>
+            onChange={e => setGmail(e.target.value)}
+          />
+          <TextField
+              className={styles.input}
+              type="password"
+              id="password"
+              name="password"
+              value={password}
+              label="Password"
+              variant="outlined"
+              onChange={e => setPassword(e.target.value)}
+              />
+          <TextField
+              className={styles.input}
+              type="password"
+              id="confirmPassword"
+              name="confirmPassword"
+              value={confirmPassword}
+              label="Password"
+              variant="outlined"
+              onChange={e => setConfirmPassword(e.target.value)}
+              error={error}
+          />
+          <Button className={styles.button} variant="contained" color="success" onClick={handleSubmit}>Enter</Button>
+        </FormControl>
+      </div>
     </div>
   )
 }
