@@ -29,7 +29,11 @@ const useStyles = makeStyles(() => ({
     margin: "20px",
   },
   user: {
-    padding: "10px",
+    padding: "5px",
+  },
+  yourname: {
+    fontSize: "1.5em",
+    color: "#75C8AE",
   },
 }))
 
@@ -63,11 +67,12 @@ const UserList = () => {
             {/* <Button  
               onClick={() => setIsJoined(true)}
             > */}
-              <Link to={`/chat/${user.userName}`}>
+              <Link to={`/chat/${user.userName}`} style={{textDecoration: "none"}}>
                 {user.userName}
               </Link>
-            {/* </Button> */}
-          </div> : null
+          </div> : <div className={styles.you}>
+            <p className={styles.yourname}>{user.userName} (you)</p>
+          </div>
         )}  
       </div>
     </div>

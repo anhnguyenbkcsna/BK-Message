@@ -109,28 +109,31 @@ const NewChatBody = () => {
             <div className={styles.messageChat} key={message.id}>
               <p className={styles.sender}>You</p>
               <div className={styles.messageSender}>
-                {message.type === "text" ? 
-                  (<p>{message.text}</p>) : (
-                    <img 
-                      className={styles.imageMessage}
-                      src={message.content} 
-                      alt={message.filename} 
-                    />
-                  )
+                {message.type === "text" && <p>{message.text}</p>}
+                {message.type === "image" && 
+                  // <img 
+                  //   className={styles.imageMessage}
+                  //   src={message.content} 
+                  //   alt={message.filename} 
+                  // />
+                  message.content
                 }
+                {/* {message.type === "file" && <div className={styles.file}>
+                  
+                </div>} */}
               </div>
             </div>
           ) : (
             <div className={styles.messageChat} key={message.id}>
               <p className={styles.recipient}>{message.name}</p>
               <div className={styles.messageRecipient}>
-                {message.type === "text" ? 
-                  (<p>{message.text}</p>) : (
-                    <img 
-                      className={styles.imageMessage}
-                      src={message.content} 
-                      alt={message.filename} />
-                  )
+                {message.type === "text" && <p>{message.text}</p>}
+                {message.type === "image" && 
+                  <img 
+                    className={styles.imageMessage}
+                    src={message.content} 
+                    alt={message.filename} 
+                  />
                 }
               </div>  
             </div>

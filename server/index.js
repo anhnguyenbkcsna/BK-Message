@@ -10,12 +10,18 @@ const socketIO = require('socket.io')(http, {
 });
 
 app.use(cors())
-let users = []
+let users = [{username: "admin", password: "1"}]
 
 socketIO.on('connection', (socket) => {
     console.log(`⚡: ${socket.id} user just connected!`)
 
     // receive message
+    // socket.on('login', data => {
+    //     const newUser = users.find((user) => user.username === data.userName && user.password === data.password)
+    //     console.log(newUser)
+    //     socketIO.emit('loggedIn', )
+    // })
+
     socket.on("newUser", data => {
         users.push(data)
         console.log('users ', users)
@@ -24,6 +30,9 @@ socketIO.on('connection', (socket) => {
     socket.on("message", data => {
         socketIO.emit("messageResponse", data)
     })
+    // socket.on('reloadUser', () => {
+    //     socketIO.emit("newUserResponse", users)
+    // });
     
     socket.on("media", data => {
         socketIO.emit("mediaResponse", data)
