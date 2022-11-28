@@ -4,7 +4,6 @@ import Badge from '@mui/material/Badge';
 import Stack from '@mui/material/Stack';
 import UserAvatar from './UserAvatar';
 import { socket } from '../../services/socket';
-import { Button } from '@mui/material';
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
     '& .MuiBadge-badge': {
@@ -38,17 +37,18 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 
 const ChatBar = () => {
     const [users, setUsers] = useState([])
+    useEffect(() => {
+        socket.on('availableUser', data => {
+            // users.push(data)
+            // console.log(window.localStorage.getItem('users'));
+        })
+    }, [])
 
     useEffect(() => {
         socket.on("newUserResponse", data => setUsers(data))
         // eslint-disable-next-line
     }, [socket, users])
-    // [] là dependency array của
-    // useEffect() render lại cái component. 
-    // Khi các biến bên trong [] thay đổi thì nó sẽ tự render
-    // It simply means that the hook will only trigger once when the component is first rendered. 
-    // So for example, for useEffect it means the callback will run once at the beginning of the lifecycle 
-    // of the component and never again.
+
 
     return (
         <div className='chat__sidebar'>
@@ -61,26 +61,24 @@ const ChatBar = () => {
                             overlap="circular"
                             anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                             variant="dot"
-                            >
+                        >
                             <UserAvatar name={user.userName} />
                         </StyledBadge>
                     </>
                 )}
             </Stack>
-            <div>
+            {/* <div>
                 <h4 className='chat__header'>Offline</h4>
-
                 <div className='chat__users'>
-
-                    {users.map(user => 
-                        <div>
-                            {/* <UserAvatar name={user.userName}/> */}
-                            <Button key={user.socketID}>{user.userName}</Button>
-                        </div>
-                    )}
+                {users.map(user => user.userName !== localStorage.getItem("userName") ?
+                    <div
+                        key={user.userName}
+                        >
+                        <Link to={`/chat/${user.userName}`}>{user.userName}</Link>
+                    </div> : null
+                )}
                 </div>
-
-            </div>
+            </div> */}
         </div>
     )
 }
