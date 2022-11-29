@@ -51,12 +51,19 @@ const SignIn = () => {
   const [userName, setUserName] = useState("")
   const [passWord, setPassWord] = useState("")
 const handleSubmit = (e) => {
-    e.preventDefault()
-    if (userName.length > 0) {
-        localStorage.setItem("userName", userName)
-        socket.emit("newUser", { userName, socketID: socket.id })
-        navigate("/home")
-    }
+  e.preventDefault()
+  if (userName.length > 0 && passWord.length > 0) {
+    localStorage.setItem("userName", userName)
+    socket.emit("signIn", { userName, passWord, socketID: socket.id })
+    socket.on('signedIn', (data) => {
+      console.log(data)
+      if(data === true){
+        navigate("/chat")
+      }
+      else navigate("/signup")
+    })
+  }
+  else alert("Please enter username and password")
 }
 return (
   <div className={styles.container}>

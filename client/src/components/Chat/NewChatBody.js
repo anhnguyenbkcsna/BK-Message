@@ -111,12 +111,12 @@ const NewChatBody = () => {
               <div className={styles.messageSender}>
                 {message.type === "text" && <p>{message.text}</p>}
                 {message.type === "image" && 
-                  // <img 
-                  //   className={styles.imageMessage}
-                  //   src={message.content} 
-                  //   alt={message.filename} 
-                  // />
-                  message.content
+                  <img 
+                    className={styles.imageMessage}
+                    src={message.content} 
+                    alt={message.filename} 
+                  />
+                  // {message.content}
                 }
                 {/* {message.type === "file" && <div className={styles.file}>
                   

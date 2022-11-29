@@ -1,7 +1,8 @@
 import React from 'react'
-import ChatBar from './ChatBar'
+// import ChatBar from './ChatBar'
 import ChatFooter from './ChatFooter'
 import NewChatBody from './NewChatBody'
+import UserList from './UserList'
 
 const ChatPage = () => {
     // const [messages, setMessages] = useState([])
@@ -30,8 +31,7 @@ const ChatPage = () => {
                 <NewChatBody />
                 <ChatFooter />
             </div>
-            <ChatBar />
-
+            <UserList />
         </div>
     )
 }

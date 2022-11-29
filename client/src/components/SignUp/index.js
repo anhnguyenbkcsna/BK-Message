@@ -49,7 +49,7 @@ const SignUp = () => {
   const styles = useStyles();
   const navigate = useNavigate()
   const [error, setError] = useState(false); 
-  const [userName, setUserName] = useState("")
+  const [username, setUsername] = useState("")
   const [gmail, setGmail] = useState("")
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
@@ -67,12 +67,12 @@ const SignUp = () => {
     else if(password !== confirmPassword){
       alert("Please confirm your password");
     }
-    else if (userName.length > 0) {
-        localStorage.setItem("userName", userName)
-        socket.emit("newUser", { userName, socketID: socket.id })
+    else if (username.length > 0) {
+        localStorage.setItem("userName", username)
+        socket.emit("signUp", { username, password, socketID: socket.id })
         navigate("/chat")
     }
-    setUserName("");
+    setUsername("");
     setGmail("")
     setPassword("")
     setConfirmPassword("")
@@ -90,10 +90,10 @@ const SignUp = () => {
             type="text"
             id="username"
             name="username"
-            value={userName}
+            value={username}
             label="Username"
             variant="outlined"
-            onChange={e => setUserName(e.target.value)}
+            onChange={e => setUsername(e.target.value)}
           />
           <TextField
             className={styles.input}
