@@ -67,7 +67,7 @@ const ChatPage = () => {
                 <div className={styles.userlist}>
                     <h1 className={styles.title}>User List</h1>
                     <Button
-                        onClick={() => setRefreshUser(true)}
+            onClick={() => setRefreshUser(true)}
                     > 
                     Refresh
                     </Button>
