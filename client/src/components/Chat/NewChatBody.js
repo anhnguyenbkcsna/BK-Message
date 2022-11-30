@@ -51,7 +51,7 @@ const useStyles = makeStyles(() => ({
   }
 }))
 
-const NewChatBody = ({receiver}) => {
+const NewChatBody = ({username, receiver}) => {
   const styles = useStyles();
   const navigate = useNavigate()
   const [messages, setMessages] = useState([])
@@ -104,15 +104,18 @@ const NewChatBody = ({receiver}) => {
         {messages.map((message) => (
           message.name === localStorage.getItem("userName") ? (
             <div className={styles.messageChat} key={message.id}>
+              {console.log(receiver)}
               <p className={styles.sender}>You</p>
               <div className={styles.messageSender}>
-                {message.type === "text" && <p                     style={{
-                      backgroundColor: "#80c960",
-                      display: "inline-block",
-                      padding: "10px",
-                      borderRadius: "18px",
-                      maxWidth: "60%",
-                    }}>{message.text}</p>}
+                {message.type === "text" && <p style={{
+                  backgroundColor: "#80c960",
+                  display: "inline-block",
+                  padding: "10px",
+                  borderRadius: "18px",
+                  maxWidth: "60%",
+                }}>
+                  {message.text}
+                </p>}
                 {message.type === "image" && 
                   <img 
                     className={styles.imageMessage}

@@ -59,7 +59,7 @@ const ChatPage = () => {
             <div className='chat__main'>
                 {console.log('Receiver chatpage', receiver)}
                 {/* <ChatBody /> */}
-                {receiver ? <NewChatBody receiver={receiver.socketID}/> : <NewChatBody />}
+                {receiver ? <NewChatBody username={receiver.username} receiver={receiver.socketID}/> : <NewChatBody />}
                 {receiver ? <ChatFooter receiver={receiver.socketID}/> : <ChatFooter/>}
             </div>
             {/* <UserList /> */}
