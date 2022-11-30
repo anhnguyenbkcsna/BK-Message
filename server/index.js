@@ -12,8 +12,11 @@ const socketIO = require('socket.io')(http, {
 });
 
 app.use(cors())
-const users = [
-    {username: "admin", password: "admin", socketID: "none"},
+let users = [
+    {username: "admin", socketID: "none"},
+    {username: "user1", socketID: "none"},
+    {username: "user2", socketID: "none"},
+    {username: "user3", socketID: "none"},
 ]
 
 socketIO.on('connection', (socket) => {
@@ -28,15 +31,20 @@ socketIO.on('connection', (socket) => {
         socketIO.emit("newUserResponse", users)
     })
     // check if user is exist
-    socket.on("signIn", data => {
-        // users.map(user => console.log(user))
-        console.log(data)
-        const getUser = users.find((user) => user.username == data.userName && user.password == data.passWord)
-        console.log(getUser)
-        // if(data.username === user.username) socket.emit('signIn',true)
-        // else socket.emit('signedIn', {type: 'wrongPassword'})
+    socket.on("signIn", (data) => {
+        let user = users.find((user) => {
+            return (user.username === data.username)
+        })
+        user.socketID = data.socketID
+        const index = users.indexOf(user)
+        console.log('  index : ' + index)
+        if(index > -1){
+            users = users.filter((e) => e !== user)
+            users.push(user)
+            console.log('update users: ', users)
+        }
         socketIO.emit("newUserResponse", users)
-        getUser ? socket.emit('signedIn', true) : socket.emit('signedIn', false)
+        socket.emit('signedIn', user)
     })
     socket.on("message", data => {
         console.log(data)
@@ -64,7 +72,12 @@ socketIO.on('connection', (socket) => {
 
     socket.on('disconnect', () => {
         console.log('🔥: A user disconnected');
-        // const users = users.filter(user => user.socketID !== socket.id)  
+        // users = users.filter(user => user.socketID !== socket.id)
+        // remove user
+        // const index = users.indexOf((user) => user.socketID !== socket.id)
+        // if(index > -1){
+        //     users.splice(index, 1)
+        // }
         socketIO.emit("newUserResponse", users)
         socket.disconnect()
     });

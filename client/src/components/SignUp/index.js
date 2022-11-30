@@ -48,34 +48,22 @@ const useStyles = makeStyles(() => ({
 const SignUp = () => {
   const styles = useStyles();
   const navigate = useNavigate()
-  const [error, setError] = useState(false); 
   const [username, setUsername] = useState("")
   const [gmail, setGmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [confirmPassword, setConfirmPassword] = useState("")
-
-  useEffect(() => {
-    if(password !== confirmPassword && confirmPassword) setError(true)
-    else setError(false)
-  }, [password, confirmPassword])
   
   const handleSubmit = (e) => {
     e.preventDefault()
     if(!gmail.includes('@')){
       alert("Please use valid email address")
     }
-    else if(password !== confirmPassword){
-      alert("Please confirm your password");
-    }
     else if (username.length > 0) {
         localStorage.setItem("userName", username)
-        socket.emit("signUp", { username, password, socketID: socket.id })
+        socket.emit("signUp", { username, socketID: socket.id })
         navigate("/chat")
     }
     setUsername("");
     setGmail("")
-    setPassword("")
-    setConfirmPassword("")
+    // setPassword("")
   }
   return (
     <div className={styles.container}>
@@ -105,7 +93,7 @@ const SignUp = () => {
             variant="outlined"
             onChange={e => setGmail(e.target.value)}
           />
-          <TextField
+          {/* <TextField
               className={styles.input}
               type="password"
               id="password"
@@ -114,8 +102,8 @@ const SignUp = () => {
               label="Password"
               variant="outlined"
               onChange={e => setPassword(e.target.value)}
-              />
-          <TextField
+              /> */}
+          {/* <TextField
               className={styles.input}
               type="password"
               id="confirmPassword"
@@ -125,7 +113,7 @@ const SignUp = () => {
               variant="outlined"
               onChange={e => setConfirmPassword(e.target.value)}
               error={error}
-          />
+          /> */}
           <Button className={styles.button} variant="contained" color="success" onClick={handleSubmit}>Enter</Button>
         </FormControl>
       </div>

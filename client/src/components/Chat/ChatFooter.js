@@ -45,8 +45,10 @@ const ChatFooter = ({receiver}) => {
         <div className='chat__footer'>
             <form className='form' onSubmit={handleSendMessage}>
                 <input
+                    disabled={receiver ? false : true}
                     type="text"
-                    placeholder='Write message'
+                    variant={   receiver ? '' : "contained"}
+                    placeholder={!receiver ? 'Please choose receiver' : 'Write message'}
                     className='message'
                     value={message}
                     onChange={e => setMessage(e.target.value)}
