@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@mui/styles';
 import { socket } from '../../services/socket';
-import { Link } from 'react-router-dom';
 import { Button } from '@mui/material';
+import UserAvatar from './UserAvatar';
+// import { Link } from 'react-router-dom';
+// import { Button } from '@mui/material';
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -34,27 +36,50 @@ const useStyles = makeStyles(() => ({
 const UserList = () => {
   const styles = useStyles()
   const [users, setUsers] = useState([])
+  const [receiver, setReceiver] = useState('')
+  const [refreshUser, setRefreshUser] = useState(false)
 
   useEffect(() => {
-      socket.on("newUserResponse", data => setUsers(data))
-      // eslint-disable-next-line
-  }, [socket, users])
+    socket.emit('refreshUser', {})
+  }, [refreshUser])
+  useEffect(() => {
+    socket.on('refreshUserResponse', (data) => {
+      setUsers(data)
+      setReceiver(false)
+    })
+  }, [])
+  useEffect(() => {
+    socket.emit('changeReceiver', receiver)
+  }, [receiver])
+
+  useEffect(() => {
+    socket.on("newUserResponse", data => {
+      setUsers(data)
+      console.log(data)
+    })
+    // eslint-disable-next-line
+  }, [])
 
   return (
     <div className={styles.container}>
       <div className={styles.userlist}>
         <h1 className={styles.title}>User List</h1>
-        {users.map(user => user.userName !== localStorage.getItem("userName") ?
+        <Button
+          onClick={() => setRefreshUser(true)}
+        > 
+          Refresh
+        </Button>
+        {users.map(user => user.username !== localStorage.getItem("userName") ?
           <div
-            key={user.userName}
+            key={user.username}
             className={styles.user}
           >
             {/* <Button  
               onClick={() => setIsJoined(true)}
             > */}
-            {user.userName}
+            <Button onClick={() => setReceiver(user)}>{user.username}</Button>
           </div> : <div className={styles.you}>
-            <p className={styles.yourname}>{user.userName} (you)</p>
+            <p className={styles.yourname}>{user.username} (you)</p>
           </div>
         )}  
       </div>

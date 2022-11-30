@@ -58,7 +58,7 @@ const useStyles = makeStyles(() => ({
   }
 }))
 
-const NewChatBody = () => {
+const NewChatBody = ({receiver}) => {
   const styles = useStyles();
   const navigate = useNavigate()
   const [messages, setMessages] = useState([])
@@ -72,7 +72,10 @@ const NewChatBody = () => {
   }
 
   useEffect(() => {
-    socket.on("messageResponse", data => setMessages([...messages, data]))
+    socket.on("messageResponse", data => {
+      console.log(data)
+      setMessages([...messages, data])
+    })
   }, [messages])
 
   useEffect(() => {
@@ -104,6 +107,7 @@ const NewChatBody = () => {
       </div>
 
       <div className={styles.messageContainer}>
+        {messages.map(message => console.log(message))}
         {messages.map((message) => (
           message.name === localStorage.getItem("userName") ? (
             <div className={styles.messageChat} key={message.id}>

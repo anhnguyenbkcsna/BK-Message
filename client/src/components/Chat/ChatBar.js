@@ -38,12 +38,6 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 
 const ChatBar = () => {
     const [users, setUsers] = useState([])
-    useEffect(() => {
-        socket.on('availableUser', data => {
-            // users.push(data)
-            // console.log(window.localStorage.getItem('users'));
-        })
-    }, [])
 
     useEffect(() => {
         socket.on("newUserResponse", data => setUsers(data))

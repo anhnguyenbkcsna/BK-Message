@@ -14,8 +14,6 @@ const socketIO = require('socket.io')(http, {
 app.use(cors())
 const users = [
     {username: "admin", password: "admin", socketID: "none"},
-    {username: "user1", password: "1", socketID: "user1id"},
-    {username: "user2", password: "2", socketID: "user2id"},
 ]
 
 socketIO.on('connection', (socket) => {
@@ -37,15 +35,23 @@ socketIO.on('connection', (socket) => {
         console.log(getUser)
         // if(data.username === user.username) socket.emit('signIn',true)
         // else socket.emit('signedIn', {type: 'wrongPassword'})
-        getUser ? socket.emit('signedIn', true) : socket.emit('signedIn', false)
         socketIO.emit("newUserResponse", users)
+        getUser ? socket.emit('signedIn', true) : socket.emit('signedIn', false)
     })
     socket.on("message", data => {
-        socketIO.emit("messageResponse", data)
+        console.log(data)
+        console.log("data receiver", data.to)
+        // socketIO.to(data.to).to(data.socketID).emit("messageResponse", data)
+        socketIO.to(data.to).emit("messageResponse", data)
+        socketIO.to(data.socketID).emit("messageResponse", data)
     })
 
     socket.on("media", data => {
-        socketIO.emit("mediaResponse", data)
+        console.log(data)
+        console.log("data receiver", data.to)
+        // socketIO.to(data.to).to(data.socketID).emit("messageResponse", data)
+        socketIO.to(data.to).emit("mediaResponse", data)
+        socketIO.to(data.socketID).emit("mediaResponse", data)
     })
 
     socket.on("typing", data => (
