@@ -49,15 +49,14 @@ const SignIn = () => {
   const styles = useStyles();
   const navigate = useNavigate()
   const [userName, setUserName] = useState("")
-  const [passWord, setPassWord] = useState("")
 const handleSubmit = (e) => {
   e.preventDefault()
-  if (userName.length > 0 && passWord.length > 0) {
+  if (userName.length > 0 ) {
     localStorage.setItem("userName", userName)
-    socket.emit("signIn", { userName, passWord, socketID: socket.id })
+    socket.emit("signIn", { username: userName, socketID: socket.id })
     socket.on('signedIn', (data) => {
       console.log(data)
-      if(data === true){
+      if(data){
         navigate("/chat")
       }
       else navigate("/signup")
@@ -85,7 +84,7 @@ return (
           variant="outlined"
           onChange={e => setUserName(e.target.value)}
       />
-        <TextField
+        {/* <TextField
             className={styles.input}
             type="password"
             id="password"
@@ -94,7 +93,7 @@ return (
             label="Password"
             variant="outlined"
             onChange={e => setPassWord(e.target.value)}
-        />
+        /> */}
         <Button className={styles.button} variant="contained" color="success" onClick={handleSubmit}>Enter</Button>
           <Link href="signup" underline="hover" className={styles.link}>
             Create account

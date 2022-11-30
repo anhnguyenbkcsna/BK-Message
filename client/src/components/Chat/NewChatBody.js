@@ -148,9 +148,9 @@ const NewChatBody = ({receiver}) => {
             </div>
           )
         ))} 
-        <div className={styles.messageStatus}>
+        {/* <div className={styles.messageStatus}>
           <i>{typingStatus ? typingStatus : ''}</i>
-        </div>
+        </div> */}
         <div ref={lastMessageRef} />
       </div>
     </div>

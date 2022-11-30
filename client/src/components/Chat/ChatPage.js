@@ -26,9 +26,9 @@ const useStyles = makeStyles(() => ({
     },
     user: {
         padding: "5px",
+        fontSize: "1.2em",
     },
     yourname: {
-        fontSize: "1.2em",
         color: "#75C8AE",
     },
 }))
@@ -66,11 +66,13 @@ const ChatPage = () => {
             <div className={styles.container}>
                 <div className={styles.userlist}>
                     <h1 className={styles.title}>User List</h1>
-                    <Button
-            onClick={() => setRefreshUser(true)}
+                    {/* <Button
+                        onClick={() => {
+                            setRefreshUser(true)
+                        }}
                     > 
-                    Refresh
-                    </Button>
+                        Refresh
+                    </Button> */}
                     {users.map(user => user.username !== localStorage.getItem("userName") ?
                     <div
                         key={user.username}
@@ -79,9 +81,14 @@ const ChatPage = () => {
                         {/* <Button  
                         onClick={() => setIsJoined(true)}
                         > */}
-                        <Button onClick={() => setReceiver(user)}>{user.username}</Button>
+                        <Button 
+                            onClick={() => setReceiver(user)}
+                            variant={receiver.username === user.username ? "contained" : "outlined"}
+                        >
+                            {user.username}
+                        </Button>
                     </div> : <div className={styles.you}>
-                        <p className={styles.yourname}>{user.username} (you)</p>
+                        <Button disabled variant="outlined"><p className={styles.yourname}>{user.username} (you)</p></Button>
                     </div>
                     )}  
                 </div>
