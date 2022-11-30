@@ -32,24 +32,17 @@ const useStyles = makeStyles(() => ({
     textAlign: "right"
   },
   imageMessage: {
-    maxWidth: "100%"
+    maxWidth: "60%",
   },
   messageSender: {
-    backgroundColor: "#80c960",
-    width: "auto",
-    maxWidth: "60%",
-    padding: "10px",
-    borderRadius: "10px",
     fontSize: "15px",
-    marginLeft: "auto",
+    display: "flex",
+    justifyContent: "flex-end",
+    wordBreak: "break-all",
   },
   messageRecipient: {  
-    backgroundColor: "#f5ccc2",
-    width: "auto",
-    maxWidth: "60%",
-    padding: "10px",
-    borderRadius: "10px",
     fontSize: "15px",
+    wordBreak: "break-all",
   },
   messageStatus: {
     position: "absolute",
@@ -58,7 +51,7 @@ const useStyles = makeStyles(() => ({
   }
 }))
 
-const NewChatBody = () => {
+const NewChatBody = ({receiver}) => {
   const styles = useStyles();
   const navigate = useNavigate()
   const [messages, setMessages] = useState([])
@@ -72,7 +65,10 @@ const NewChatBody = () => {
   }
 
   useEffect(() => {
-    socket.on("messageResponse", data => setMessages([...messages, data]))
+    socket.on("messageResponse", data => {
+      console.log(data)
+      setMessages([...messages, data])
+    })
   }, [messages])
 
   useEffect(() => {
@@ -104,19 +100,26 @@ const NewChatBody = () => {
       </div>
 
       <div className={styles.messageContainer}>
+        {messages.map(message => console.log(message))}
         {messages.map((message) => (
           message.name === localStorage.getItem("userName") ? (
             <div className={styles.messageChat} key={message.id}>
               <p className={styles.sender}>You</p>
               <div className={styles.messageSender}>
-                {message.type === "text" && <p>{message.text}</p>}
+                {message.type === "text" && <p                     style={{
+                      backgroundColor: "#80c960",
+                      display: "inline-block",
+                      padding: "10px",
+                      borderRadius: "18px",
+                      maxWidth: "60%",
+                    }}>{message.text}</p>}
                 {message.type === "image" && 
-                  // <img 
-                  //   className={styles.imageMessage}
-                  //   src={message.content} 
-                  //   alt={message.filename} 
-                  // />
-                  message.content
+                  <img 
+                    className={styles.imageMessage}
+                    src={message.content} 
+                    alt={message.filename} 
+                  />
+                  // {message.content}
                 }
                 {/* {message.type === "file" && <div className={styles.file}>
                   
@@ -127,7 +130,13 @@ const NewChatBody = () => {
             <div className={styles.messageChat} key={message.id}>
               <p className={styles.recipient}>{message.name}</p>
               <div className={styles.messageRecipient}>
-                {message.type === "text" && <p>{message.text}</p>}
+                {message.type === "text" && <p style={{
+                      backgroundColor: "#f5ccc2",
+                      display: "inline-block",
+                      padding: "10px",
+                      borderRadius: "18px",
+                      maxWidth: "60%",
+                    }}>{message.text}</p>}
                 {message.type === "image" && 
                   <img 
                     className={styles.imageMessage}

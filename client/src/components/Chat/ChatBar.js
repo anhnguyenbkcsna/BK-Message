@@ -4,6 +4,7 @@ import Badge from '@mui/material/Badge';
 import Stack from '@mui/material/Stack';
 import UserAvatar from './UserAvatar';
 import { socket } from '../../services/socket';
+import { Link } from 'react-router-dom';
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
     '& .MuiBadge-badge': {
@@ -37,12 +38,6 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 
 const ChatBar = () => {
     const [users, setUsers] = useState([])
-    useEffect(() => {
-        socket.on('availableUser', data => {
-            // users.push(data)
-            // console.log(window.localStorage.getItem('users'));
-        })
-    }, [])
 
     useEffect(() => {
         socket.on("newUserResponse", data => setUsers(data))
@@ -67,18 +62,19 @@ const ChatBar = () => {
                     </>
                 )}
             </Stack>
-            {/* <div>
-                <h4 className='chat__header'>Offline</h4>
+            <div>
                 <div className='chat__users'>
                 {users.map(user => user.userName !== localStorage.getItem("userName") ?
                     <div
                         key={user.userName}
-                        >
-                        <Link to={`/chat/${user.userName}`}>{user.userName}</Link>
-                    </div> : null
+                    >
+                        <Link to={`/chat/`}>{user.userName}</Link>
+                    </div> : <div key={user.userName}>
+                        <p style={{color: "green"}}>{user.userName}</p>
+                    </div>
                 )}
                 </div>
-            </div> */}
+            </div>
         </div>
     )
 }
