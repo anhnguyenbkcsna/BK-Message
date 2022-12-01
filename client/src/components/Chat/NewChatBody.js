@@ -96,6 +96,7 @@ const NewChatBody = ({username, receiver}) => {
           onClick={handleLeaveChat} 
           variant="contained"
           color="error"
+          style={{borderRadius: "25px"}}
         >
           Leave Chat
         </Button>
