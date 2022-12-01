@@ -42,7 +42,7 @@ const ChatFooter = ({receiver}) => {
         socket.off("typing");
     },[message])
     return (
-        <div className='chat__footer'>
+        <div className='chat__footer' style={{backgroundColor: "#FFF"}}>
             <form className='form' onSubmit={handleSendMessage}>
                 <input
                     disabled={receiver ? false : true}
@@ -55,7 +55,7 @@ const ChatFooter = ({receiver}) => {
                     // onKeyDown={handleTyping}
                 />
                 <Button variant="contained" color="primary" component='label'>
-                    File
+                    Image
                     <input type="file" hidden
                         onChange={(e) => {
                             const file = e.target.files[0];
