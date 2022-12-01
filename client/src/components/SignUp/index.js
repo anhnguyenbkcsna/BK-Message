@@ -59,7 +59,7 @@ const SignUp = () => {
     else if (username.length > 0) {
         localStorage.setItem("userName", username)
         socket.emit("signUp", { username, socketID: socket.id })
-        navigate("/chat")
+        navigate("/signIn")
     }
     setUsername("");
     setGmail("")

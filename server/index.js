@@ -7,7 +7,7 @@ var Server  = require('http').createServer(app);
 const http = require('http').Server(app);
 const socketIO = require('socket.io')(http, {
     cors: {
-        origin: "http://localhost:3000"
+        origin: "http://192.168.0.106:3000",
     }
 });
 
@@ -35,7 +35,7 @@ socketIO.on('connection', (socket) => {
         let user = users.find((user) => {
             return (user.username === data.username)
         })
-        user.socketID = data.socketID
+        if(user) user.socketID = data.socketID
         const index = users.indexOf(user)
         console.log('  index : ' + index)
         if(index > -1){
