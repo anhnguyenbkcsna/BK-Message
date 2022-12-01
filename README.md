@@ -7,13 +7,13 @@ Created for assignment 1 Computer Network
   Back-end  : ExpressJS (NodeJS framework)
 #
 
-# client
-# `cd client`
-# `yarn install --force` or `npm i -f`
-# `yarn start` or `npm start`
+> Run client
+## `cd client`
+## `yarn install --force` or `npm i -f`
+## `yarn start` or `npm start`
 
-# server 
-# `cd server`
-# `npm i -f`
-# `npm start` 
+> Run server 
+## `cd server`
+## `npm i -f`
+## `npm start` 
 
