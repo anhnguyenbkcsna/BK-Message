@@ -15,7 +15,9 @@ const useStyles = makeStyles(() => ({
     alignItems: "center",
     justifyContent: "space-between",
     padding: "20px",
-    backgroundColor: "#3AB0FF",
+    backgroundColor: "#009CFA",
+    borderRadius: "15px 15px 0px 0px",
+    // backgroundImage: "linear-gradient(to right, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1)",
   },
   leaveChatButton:{
     height: "50px",
@@ -108,7 +110,7 @@ const NewChatBody = ({username, receiver}) => {
               <p className={styles.sender}>You</p>
               <div className={styles.messageSender}>
                 {message.type === "text" && <p style={{
-                  backgroundColor: "#80c960",
+                  backgroundColor: "#79E68E",
                   display: "inline-block",
                   padding: "10px",
                   borderRadius: "18px",
@@ -134,7 +136,7 @@ const NewChatBody = ({username, receiver}) => {
               <p className={styles.recipient}>{message.name}</p>
               <div className={styles.messageRecipient}>
                 {message.type === "text" && <p style={{
-                      backgroundColor: "#f5ccc2",
+                      backgroundColor: "#82CDDD",
                       display: "inline-block",
                       padding: "10px",
                       borderRadius: "18px",
