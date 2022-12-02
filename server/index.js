@@ -7,7 +7,13 @@ var Server  = require('http').createServer(app);
 const http = require('http').Server(app);
 const socketIO = require('socket.io')(http, {
     cors: {
-        origin: "http://192.168.0.106:3000",
+        origin: [
+            `http://${process.env.SERVER_IP}:3000`,
+            `http://0.0.0.0:3000`,
+            "https://admin.socket.io",
+            "http://localhost:3000",
+            "http://172.20.10.3:3000",
+        ],
     }
 });
 
