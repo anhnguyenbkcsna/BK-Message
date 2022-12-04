@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react'
-import { makeStyles } from '@mui/styles'
-import { useNavigate } from "react-router-dom"
-import { socket } from '../../services/socket'
-import { Button } from '@mui/material'
+import React, { useState, useEffect, useRef } from "react";
+import { makeStyles } from "@mui/styles";
+import { useNavigate } from "react-router-dom";
+import { socket } from "../../services/socket";
+import { Button } from "@mui/material";
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -19,7 +19,7 @@ const useStyles = makeStyles(() => ({
     borderRadius: "15px 15px 0px 0px",
     // backgroundImage: "linear-gradient(to right, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1)",
   },
-  leaveChatButton:{
+  leaveChatButton: {
     height: "50px",
   },
   messageContainer: {
@@ -30,8 +30,8 @@ const useStyles = makeStyles(() => ({
     border: "1px solid #3ab0ff",
   },
   messageChat: {},
-  sender: {  
-    textAlign: "right"
+  sender: {
+    textAlign: "right",
   },
   imageMessage: {
     maxWidth: "60%",
@@ -42,7 +42,7 @@ const useStyles = makeStyles(() => ({
     justifyContent: "flex-end",
     wordBreak: "break-all",
   },
-  messageRecipient: {  
+  messageRecipient: {
     fontSize: "15px",
     wordBreak: "break-all",
   },
@@ -50,50 +50,51 @@ const useStyles = makeStyles(() => ({
     position: "absolute",
     bottom: "10px",
     color: "#44B700",
-  }
-}))
+  },
+}));
 
-const NewChatBody = ({username, receiver}) => {
+const NewChatBody = ({ username, receiver }) => {
   const styles = useStyles();
-  const navigate = useNavigate()
-  const [messages, setMessages] = useState([])
-  const [typingStatus, setTypingStatus] = useState("")
-  const lastMessageRef = useRef(null)
+  const navigate = useNavigate();
+  const [messages, setMessages] = useState([]);
+  const [typingStatus, setTypingStatus] = useState("");
+  const lastMessageRef = useRef(null);
 
   const handleLeaveChat = () => {
     localStorage.removeItem("userName");
-    navigate("/")
+    navigate("/");
     window.location.reload();
-  }
+  };
 
   useEffect(() => {
-    socket.on("messageResponse", data => {
-      console.log(data)
-      setMessages([...messages, data])
-    })
-  }, [messages])
+    socket.on("messageResponse", (data) => {
+      console.log(data);
+      setMessages([...messages, data]);
+    });
+  }, [messages]);
 
   useEffect(() => {
-    socket.on("mediaResponse", data => {
-      console.log(data)
-      setMessages([...messages, data])
-  })}, [messages])
+    socket.on("mediaResponse", (data) => {
+      console.log(data);
+      setMessages([...messages, data]);
+    });
+  }, [messages]);
 
   useEffect(() => {
-      socket.on("typingResponse", data => setTypingStatus(data))
-  },[])
+    socket.on("typingResponse", (data) => setTypingStatus(data));
+  }, []);
 
   useEffect(() => {
-      lastMessageRef.current?.scrollIntoView({ behavior: "smooth" });
-  },[messages])
+    lastMessageRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
 
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <h1 style={{color: "white"}}>BK Message</h1>
+        <h1 style={{ color: "white" }}>BK Message</h1>
         <Button
-          className={styles.leaveChatButton} 
-          onClick={handleLeaveChat} 
+          className={styles.leaveChatButton}
+          onClick={handleLeaveChat}
           variant="contained"
           color="error"
           style={{borderRadius: "25px"}}
@@ -103,8 +104,8 @@ const NewChatBody = ({username, receiver}) => {
       </div>
 
       <div className={styles.messageContainer}>
-        {messages.map(message => console.log(message))}
-        {messages.map((message) => (
+        {messages.map((message) => console.log(message))}
+        {messages.map((message) =>
           message.name === localStorage.getItem("userName") ? (
             <div className={styles.messageChat} key={message.id}>
               {console.log(receiver)}
@@ -142,25 +143,29 @@ const NewChatBody = ({username, receiver}) => {
                       padding: "10px",
                       borderRadius: "18px",
                       maxWidth: "60%",
-                    }}>{message.text}</p>}
-                {message.type === "image" && 
-                  <img 
+                    }}
+                  >
+                    {message.text}
+                  </p>
+                )}
+                {message.type === "image" && (
+                  <img
                     className={styles.imageMessage}
-                    src={message.content} 
-                    alt={message.filename} 
+                    src={message.content}
+                    alt={message.filename}
                   />
-                }
-              </div>  
+                )}
+              </div>
             </div>
           )
-        ))} 
-        {/* <div className={styles.messageStatus}>
-          <i>{typingStatus ? typingStatus : ''}</i>
-        </div> */}
+        )}
+        <div className={styles.messageStatus}>
+          <i>{typingStatus ? typingStatus : ""}</i>
+        </div>
         <div ref={lastMessageRef} />
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default NewChatBody;

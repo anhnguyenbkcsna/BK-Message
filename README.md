@@ -1,15 +1,19 @@
 # BK-Message
-This web-app is used for chatting between member in class.
+This web-app is used for chatting between member in LAN.
+Created for assignment 1 Computer Network
 
-# client
-cd client
-yarn install --force
-yarn start
+#
+  Front-end : ReactJS, Material UI
+  Back-end  : ExpressJS (NodeJS framework)
+#
 
-# server 
-cd server
-npm i -f
-npm start 
+> Run client
+## `cd client`
+## `yarn install --force` or `npm i -f`
+## `yarn start` or `npm start`
 
-https://github.com/itzg/react-mui-login-register
-:v dã chiến vl
+> Run server 
+## `cd server`
+## `npm i -f`
+## `npm start` 
+
