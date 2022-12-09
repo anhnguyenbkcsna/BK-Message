@@ -5,6 +5,7 @@ import SignIn from './components/SignIn'
 import SignUp from './components/SignUp'
 import ForgetPass from './components/ForgetPassword';
 import UserList from './components/Chat/UserList';
+import VideoCall from './components/Chat/VideoCall';
 // import { createTheme, ThemeProvider } from '@mui/material/styles';
 // const socket = socketIO.connect('http://localhost:4000');
 // const theme = createTheme({
@@ -24,6 +25,7 @@ function App() {
           <Route path='/SignIn' element={<SignIn />} />
           <Route path='/SignUp' element={<SignUp />} />
           <Route path='/ForgetPassword' element={<ForgetPass />} />
+          <Route path='/call' element={<VideoCall />} />
         </Routes>
       </BrowserRouter>
     // </ThemeProvider>

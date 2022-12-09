@@ -147,7 +147,7 @@ const NewChatBody = ({ username, receiver }) => {
                   >
                     {message.text}
                   </p>
-                )}
+                }
                 {message.type === "image" && (
                   <img
                     className={styles.imageMessage}

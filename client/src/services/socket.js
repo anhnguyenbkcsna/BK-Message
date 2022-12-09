@@ -1,7 +1,7 @@
 import io from "socket.io-client";
 
 // const SOCKET_URL = `http://localhost:4000`;
-const SOCKET_URL = `http://192.168.0.106:4000/`
+const SOCKET_URL = `http://localhost:4000/`
 
 // const SOCKET_URL = `http://10.9.9.217:2021`;
 

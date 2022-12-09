@@ -7,6 +7,7 @@ import { makeStyles } from '@mui/styles'
 import { socket } from '../../services/socket'
 import { Button } from '@mui/material'
 
+
 const useStyles = makeStyles(() => ({
     userlistcontainer: {
         position: 'relative',
@@ -105,6 +106,7 @@ const ChatPage = () => {
                         {/* <div className={styles.contentInsideButton}> */}
                             <UserAvatar name={user.username} className={styles.avatar}/>
                             <p style={{fontSize: "1.5em", margin: "auto"}}>{user.username}</p>
+
                         {/* </div> */}
                     </Button>
                 </div> 

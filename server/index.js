@@ -67,9 +67,14 @@ socketIO.on("connection", (socket) => {
     socketIO.to(data.socketID).emit("mediaResponse", data);
   });
 
-  socket.on("typing", (data) => socket.broadcast.emit("typingResponse", data));
+  // call video
+  socket.on("callUser", ({ userToCall, signalData, from, name }) => {
+		io.to(userToCall).emit("callUser", { signal: signalData, from, name });
+	});
 
-  socket.on("", (data) => socket.emit("message", data));
+	socket.on("answerCall", (data) => {
+		io.to(data.to).emit("callAccepted", data.signal)
+	});
 
   socket.on("disconnect", () => {
     console.log("🔥: A user disconnected");
